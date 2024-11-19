@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Habit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #00bcd4, #673ab7);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #00bcd4;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: none;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #673ab7;
+            box-shadow: 0 0 4px rgba(103, 58, 183, 0.4);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00bcd4;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0097a7;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add a New Habit</h2>
+        <form method="post">
+            {% csrf_token %}
+            <!-- Habit Description -->
+            <label for="id_description">Habit Description:</label>
+            <textarea id="id_description" name="description" rows="5" placeholder="Describe your habit"></textarea>
+            <button type="submit">Save Habit</button>
+        </form>
+        <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

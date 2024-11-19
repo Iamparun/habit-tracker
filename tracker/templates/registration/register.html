@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        /* Reset Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            padding: 20px;
+        }
+
+        /* Register Container */
+        .register-container {
+            background: #ffffff;
+            color: #333;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ff7e5f;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #feb47b;
+            box-shadow: 0 0 5px rgba(254, 180, 123, 0.5);
+            outline: none;
+        }
+
+        .register-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Login Link */
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #feb47b;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 480px) {
+            .register-container {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .input-field {
+                font-size: 14px;
+            }
+
+            .register-btn {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .login-link {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+
+        <div class="login-link">
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

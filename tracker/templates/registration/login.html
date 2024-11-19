@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* Reset Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle, #f06, #8e44ad);
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Login Container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+            padding: 40px 30px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #8e44ad;
+            text-align: center;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #f06;
+            box-shadow: 0 0 8px rgba(240, 6, 6, 0.3);
+            outline: none;
+        }
+
+        .login-btn {
+            padding: 12px;
+            background: linear-gradient(45deg, #4caf50, #81c784); /* Changed to green gradient */
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(45deg, #388e3c, #66bb6a); /* Darker green on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 142, 60, 0.4);
+        }
+
+        /* Register Link */
+        .register-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .register-link a {
+            color: #8e44ad;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .input-field {
+                font-size: 14px;
+            }
+
+            .login-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="text" class="input-field" name="username" placeholder="Username" required>
+            <input type="password" class="input-field" name="password" placeholder="Password" required>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <div class="register-link">
+            <p>New here? <a href="{% url 'register' %}">Create an account</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Habit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple to Blue gradient */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px; /* Ensure content doesn't stretch too wide on large screens */
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        /* Header Section */
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #6a11cb; /* Purple */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #6a11cb; /* Purple on focus */
+            box-shadow: 0 0 4px rgba(106, 17, 203, 0.4);
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #6a11cb; /* Purple */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4b09a1; /* Darker purple on hover */
+        }
+
+        /* Submit Button Style */
+        .submit-btn {
+            background-color: #ff6f61; /* Coral for submit */
+            color: white;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #e55d50; /* Darker coral */
+        }
+
+        /* Cancel Button Style - Distinct Look */
+        .cancel-btn {
+            background-color: #ff7043; /* Light coral */
+            color: white;
+            margin-top: 10px;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            width: 100%; /* Full width */
+        }
+
+        .cancel-btn:hover {
+            background-color: #ff5722; /* Darker coral on hover */
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6a11cb; /* Purple text for link */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Habit</h2>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_description">Description:</label>
+                {{ form.description }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_status">Status:</label>
+                {{ form.status }}
+            </div>
+
+            <button type="submit" class="btn submit-btn">Save Changes</button>
+            <a href="{% url 'dashboard' %}" class="btn cancel-btn">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
