@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Habit</title>
+    <title>Dashboard - Habit Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* General Reset */
@@ -15,10 +15,11 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple to Blue gradient */
+            background: linear-gradient(135deg, #ff8a00, #ff5f00); /* Warm Orange Gradient */
             color: #333;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
             padding: 20px;
             min-height: 100vh;
             overflow-x: hidden;
@@ -26,7 +27,7 @@
 
         .container {
             width: 100%;
-            max-width: 600px; /* Ensure content doesn't stretch too wide on large screens */
+            max-width: 900px;
             background: #ffffff;
             border-radius: 16px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -35,101 +36,123 @@
         }
 
         /* Header Section */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
         h2 {
             font-size: 28px;
             font-weight: 700;
-            color: #6a11cb; /* Purple */
+            color: #ff5f00; /* Orange */
+        }
+
+        /* Welcome Section */
+        .welcome {
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
             margin-bottom: 20px;
             text-align: center;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
+        .welcome strong {
+            font-size: 22px;
+            color: #ff5f00; /* Highlight the name in orange */
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-size: 16px;
-            margin-bottom: 8px;
-            display: block;
-            color: #555;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            font-size: 14px;
-            margin-top: 5px;
+        /* Habit Cards */
+        .habit {
             border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff4e1;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .habit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .habit h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .btn {
             border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #6a11cb; /* Purple on focus */
-            box-shadow: 0 0 4px rgba(106, 17, 203, 0.4);
-        }
-
-        button {
-            padding: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: #6a11cb; /* Purple */
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #4b09a1; /* Darker purple on hover */
-        }
-
-        /* Submit Button Style */
-        .submit-btn {
-            background-color: #ff6f61; /* Coral for submit */
-            color: white;
-            margin-top: 20px;
-        }
-
-        .submit-btn:hover {
-            background-color: #e55d50; /* Darker coral */
-        }
-
-        /* Cancel Button Style - Distinct Look */
-        .cancel-btn {
-            background-color: #ff7043; /* Light coral */
-            color: white;
-            margin-top: 10px;
-            font-weight: bold;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            display: inline-block;
-            text-decoration: none;
-            width: 100%; /* Full width */
-        }
-
-        .cancel-btn:hover {
-            background-color: #ff5722; /* Darker coral on hover */
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 20px;
+            padding: 10px 16px;
             font-size: 14px;
-            color: #6a11cb; /* Purple text for link */
-            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-right: 6px;
+            text-align: center;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: #ff5a5f;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #e04e4e;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        /* Disabled Button */
+        .btn-disabled {
+            background-color: #d6d6d6;
+            color: #aaa;
+            cursor: not-allowed;
+        }
+
+        /* Add Habit Section */
+        .add-habit {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .add-habit .btn {
+            margin: 0 auto;
         }
 
         /* Responsive Design */
@@ -142,32 +165,87 @@
                 font-size: 24px;
             }
 
-            button {
-                font-size: 14px;
+            .habit {
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 8px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 20px;
+            }
+
+            .welcome {
+                font-size: 18px;
+            }
+
+            .habit {
                 padding: 10px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 6px 10px;
+                margin-right: 4px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Edit Habit</h2>
-        <form method="POST">
-            {% csrf_token %}
+        <!-- Header Section -->
+        <div class="header">
+            <h2>Habit Tracker Dashboard</h2>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+
+        <!-- Welcome Message -->
+        {% if user.is_authenticated %}
+            <p class="welcome">Welcome <strong>{{ user.first_name|default:user.username }}</strong>!</p>
+        {% else %}
+            <p class="welcome">Please log in to see your dashboard.</p>
+        {% endif %}
+
+        <!-- Add New Habit Button -->
+        <div class="add-habit">
+            <a href="{% url 'add_habit' %}" class="btn btn-success">Add New Habit</a>
+        </div>
+
+        <!-- List of Habits -->
+        {% for habit in habits %}
+        <div class="habit">
+            <h3>{{ habit.description }}</h3>
+            <p>Status: <strong>{{ habit.get_status_display }}</strong></p>
+
+            <!-- Edit Button - Disabled if Status is Completed -->
+            <a href="{% url 'edit_habit' habit.id %}" class="btn btn-primary" 
+               {% if habit.status == 'Completed' %}class="btn-disabled" style="pointer-events: none;"{% endif %}>
+                Edit
+            </a>
+
+            <form method="POST" action="{% url 'delete_habit' habit.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
             
-            <div class="form-group">
-                <label for="id_description">Description:</label>
-                {{ form.description }}
-            </div>
-
-            <div class="form-group">
-                <label for="id_status">Status:</label>
-                {{ form.status }}
-            </div>
-
-            <button type="submit" class="btn submit-btn">Save Changes</button>
-            <a href="{% url 'dashboard' %}" class="btn cancel-btn">Cancel</a>
-        </form>
+            <form method="POST" action="{% url 'update_status' habit.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary" {% if habit.status == 'Completed' %}disabled{% endif %}>
+                    {% if habit.status == 'Pending' %} Mark as Completed {% else %} Completed {% endif %}
+                </button>
+            </form>
+        </div>
+        {% empty %}
+        <p>No habits found. Start by adding a new habit!</p>
+        {% endfor %}
     </div>
 </body>
 </html>

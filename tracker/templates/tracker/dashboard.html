@@ -19,6 +19,7 @@
             color: #333;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
             padding: 20px;
             min-height: 100vh;
             overflow-x: hidden;
@@ -30,9 +31,8 @@
             background: #ffffff;
             border-radius: 16px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 40px 30px;
+            padding: 30px;
             margin-top: 20px;
-            overflow: hidden;
         }
 
         /* Header Section */
@@ -40,35 +40,35 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         h2 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
             color: #ff5f00; /* Orange */
         }
 
-        /* Simplified Welcome Section */
+        /* Welcome Section */
         .welcome {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 500;
             color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         .welcome strong {
-            font-size: 28px;
+            font-size: 22px;
             color: #ff5f00; /* Highlight the name in orange */
         }
 
-        /* Task Cards */
+        /* Habit Cards */
         .habit {
             border: 1px solid #ddd;
             border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
+            padding: 20px;
+            margin-bottom: 20px;
             background-color: #fff4e1;
             transition: transform 0.3s ease-in-out;
         }
@@ -79,18 +79,19 @@
         }
 
         .habit h3 {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #333;
-            font-size: 22px;
+            font-size: 18px;
         }
 
         .btn {
             border-radius: 8px;
             padding: 10px 16px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
-            margin-right: 8px;
+            margin-right: 6px;
+            text-align: center;
         }
 
         .btn-primary {
@@ -137,32 +138,62 @@
             transform: translateY(-2px);
         }
 
+        /* Disabled Button */
         .btn-disabled {
-            background-color: #d6d6d6; /* Greyed-out style for disabled button */
+            background-color: #d6d6d6;
             color: #aaa;
             cursor: not-allowed;
+        }
+
+        /* Add Habit Section */
+        .add-habit {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .add-habit .btn {
+            margin: 0 auto;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 25px;
-            }
-
-            h2 {
-                font-size: 28px;
-            }
-
-            .habit {
                 padding: 20px;
             }
 
+            h2 {
+                font-size: 24px;
+            }
+
+            .habit {
+                padding: 15px;
+            }
+
             .btn {
-                font-size: 14px;
+                font-size: 12px;
                 padding: 8px 14px;
             }
         }
 
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 20px;
+            }
+
+            .welcome {
+                font-size: 18px;
+            }
+
+            .habit {
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 6px 10px;
+                margin-right: 4px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -176,15 +207,15 @@
             </form>
         </div>
 
-        <!-- Simplified Welcome Message -->
+        <!-- Welcome Message -->
         {% if user.is_authenticated %}
-            <p class="welcome">Welcome back, <strong>{{ user.first_name|default:user.username }}</strong>!</p>
+            <p class="welcome">Welcome <strong>{{ user.first_name|default:user.username }}</strong>!</p>
         {% else %}
             <p class="welcome">Please log in to see your dashboard.</p>
         {% endif %}
 
         <!-- Add New Habit Button -->
-        <div class="text-center">
+        <div class="add-habit">
             <a href="{% url 'add_habit' %}" class="btn btn-success">Add New Habit</a>
         </div>
 
@@ -195,28 +226,25 @@
             <p>Status: <strong>{{ habit.get_status_display }}</strong></p>
 
             <!-- Edit Button - Disabled if Status is Completed -->
-            <a href="{% url 'edit_habit' habit.id %}" class="btn btn-primary" {% if habit.status == 'Completed' %}class="btn-disabled" style="pointer-events: none;"{% endif %}>Edit</a>
+            <a href="{% url 'edit_habit' habit.id %}" class="btn btn-primary" 
+               {% if habit.status == 'Completed' %}class="btn-disabled" style="pointer-events: none;"{% endif %}>
+                Edit
+            </a>
 
             <form method="POST" action="{% url 'delete_habit' habit.id %}" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
             
-            <!-- Habit Status Section -->
             <form method="POST" action="{% url 'update_status' habit.id %}" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-secondary" {% if habit.status == 'Completed' %}disabled{% endif %}>
-                    {% if habit.status == 'Pending' %}
-                        Mark as Completed
-                    {% else %}
-                        Completed
-                    {% endif %}
+                    {% if habit.status == 'Pending' %} Mark as Completed {% else %} Completed {% endif %}
                 </button>
             </form>
-
         </div>
         {% empty %}
-            <p>No habits found. Start by adding a new habit!</p>
+        <p>No habits found. Start by adding a new habit!</p>
         {% endfor %}
     </div>
 </body>

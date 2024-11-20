@@ -56,7 +56,7 @@
         textarea {
             width: 100%;
             padding: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 14px;
@@ -67,6 +67,14 @@
             outline: none;
             border-color: #673ab7;
             box-shadow: 0 0 4px rgba(103, 58, 183, 0.4);
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: left;
+            display: none; /* Hidden by default */
         }
 
         button {
@@ -112,15 +120,29 @@
             }
         }
     </style>
+    <script>
+        function validateForm(event) {
+            const description = document.getElementById("id_description").value.trim();
+            const errorMessage = document.getElementById("error-message");
+            
+            if (!description) {
+                errorMessage.style.display = "block"; // Show the error message
+                errorMessage.textContent = "Habit description cannot be empty.";
+                event.preventDefault(); // Prevent form submission
+            } else {
+                errorMessage.style.display = "none"; // Hide the error message
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h2>Add a New Habit</h2>
-        <form method="post">
+        <form method="post" onsubmit="validateForm(event)">
             {% csrf_token %}
-            <!-- Habit Description -->
             <label for="id_description">Habit Description:</label>
             <textarea id="id_description" name="description" rows="5" placeholder="Describe your habit"></textarea>
+            <p id="error-message" class="error-message"></p>
             <button type="submit">Save Habit</button>
         </form>
         <a href="{% url 'dashboard' %}">Back to Dashboard</a>
